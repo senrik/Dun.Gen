@@ -26,4 +26,14 @@ public class EnemyStats : MonoBehaviour {
         get { return health; }
         set { health = value; }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Bullet")
+        {
+            GameObject tempBullet = collision.transform.gameObject;
+
+            health -= tempBullet.GetComponent<ProjectileController>().Damage;
+        }
+    }
 }

@@ -16,10 +16,11 @@ public class EnemyNavigation : MonoBehaviour {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         currentWaypoint = 0;
         agent.autoBraking = false;
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        MoveToNextWaypoint();
+        //playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //MoveToNextWaypoint();
 	}
-	
+
+    #region Private Methods
     void DrawPath()
     {
         for(int i = 0; i < patrolPath.waypoints.Count; i++)
@@ -54,20 +55,23 @@ public class EnemyNavigation : MonoBehaviour {
 
     void ApproachPlayer()
     {
-        //Debug.Log("Approaching Player Position");
+        // If the player is outside our effect range, move toward the player
         if(Vector3.Distance(transform.position, playerTransform.position) > effectiveRange)
         {
-            agent.Resume();
-            agent.destination = playerTransform.position;
+            //agent.Resume();
+            //agent.destination = playerTransform.position;
         }
+        // The player is within our effective range, stop moving.
         else
         {
-            agent.Stop();
+            //agent.Stop();
         }
     }
-	// Update is called once per frame
-	public void NaviUpdate () {
-        DrawPath();
+#endregion
+
+    // Update is called once per frame
+    public void NaviUpdate () {
+        //DrawPath();
 
 
         switch (controller.CurrentState)
@@ -80,13 +84,13 @@ public class EnemyNavigation : MonoBehaviour {
                 {
                     currentWaypoint++;
                     //Debug.Log("Reached current waypoint.");
-                    MoveToNextWaypoint();
+                    //MoveToNextWaypoint();
                 }
                 break;
             case EnemyController.State.Idling:
                 break;
             case EnemyController.State.Dead:
-                agent.Stop();
+                //agent.Stop();
                 break;
         }
         
